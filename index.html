@@ -3,31 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Open Banking Demo</title>
+  <title>ODX.IO - Open Banking Platform</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <header>
-    <h1>Open Banking Demo</h1>
-    <p>Explore accounts and transactions with sandbox data</p>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <i class="fas fa-university"></i>
+        <span>ODX.IO</span>
+      </div>
+      <div class="nav-menu">
+        <a href="#dashboard" class="nav-link active">Dashboard</a>
+        <a href="#accounts" class="nav-link">Accounts</a>
+        <a href="#transactions" class="nav-link">Transactions</a>
+        <a href="#analytics" class="nav-link">Analytics</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Open Banking Platform</h1>
+      <p>Secure, seamless financial data integration with modern APIs</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">99.9%</span>
+          <span class="stat-label">Uptime</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">500+</span>
+          <span class="stat-label">Banks</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">1M+</span>
+          <span class="stat-label">Users</span>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <main>
-    <section class="card">
-      <h2>Accounts</h2>
-      <button id="fetchAccounts">Fetch Accounts</button>
-      <pre id="accountsResult">No data yet</pre>
-    </section>
+  <main class="main-content">
+    <div class="dashboard-grid">
+      <section class="dashboard-card accounts-section">
+        <div class="card-header">
+          <h2><i class="fas fa-wallet"></i> Account Overview</h2>
+          <button id="fetchAccounts" class="btn btn-primary">
+            <i class="fas fa-sync-alt"></i>
+            <span>Refresh Accounts</span>
+          </button>
+        </div>
+        <div class="card-content">
+          <div id="accountsResult" class="data-container">
+            <div class="empty-state">
+              <i class="fas fa-wallet"></i>
+              <p>Click to load your accounts</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <section class="card">
-      <h2>Transactions</h2>
-      <button id="fetchTransactions">Fetch Transactions</button>
-      <pre id="transactionsResult">No data yet</pre>
-    </section>
+      <section class="dashboard-card transactions-section">
+        <div class="card-header">
+          <h2><i class="fas fa-exchange-alt"></i> Recent Transactions</h2>
+          <button id="fetchTransactions" class="btn btn-primary">
+            <i class="fas fa-sync-alt"></i>
+            <span>Load Transactions</span>
+          </button>
+        </div>
+        <div class="card-content">
+          <div id="transactionsResult" class="data-container">
+            <div class="empty-state">
+              <i class="fas fa-exchange-alt"></i>
+              <p>Click to load your transactions</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-card analytics-section">
+        <div class="card-header">
+          <h2><i class="fas fa-chart-pie"></i> Financial Insights</h2>
+        </div>
+        <div class="card-content">
+          <div class="insights-grid">
+            <div class="insight-card">
+              <div class="insight-icon">
+                <i class="fas fa-arrow-up"></i>
+              </div>
+              <div class="insight-content">
+                <span class="insight-value">$4,500</span>
+                <span class="insight-label">Total Balance</span>
+              </div>
+            </div>
+            <div class="insight-card">
+              <div class="insight-icon">
+                <i class="fas fa-calendar"></i>
+              </div>
+              <div class="insight-content">
+                <span class="insight-value">12</span>
+                <span class="insight-label">Transactions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <footer>
-    <p>Open Banking Demo Site • Sandbox Data Only</p>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>ODX.IO</h3>
+        <p>Empowering financial innovation through open banking</p>
+      </div>
+      <div class="footer-section">
+        <h4>Security</h4>
+        <ul>
+          <li>Bank-level encryption</li>
+          <li>SOC 2 compliant</li>
+          <li>GDPR ready</li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li>Documentation</li>
+          <li>API Reference</li>
+          <li>Contact Support</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 ODX.IO. All rights reserved. • Sandbox Environment</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
