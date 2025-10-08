@@ -85,18 +85,135 @@ body {
 /* Logo Container */
 .logo-container {
   position: relative;
-  width: 12px;
-  height: 12px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* PNG Logo Image */
-.logo-image {
-  width: 10px;
-  height: 10px;
-  object-fit: contain;
+/* Innovative CSS Logo */
+.innovative-logo {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+/* Main Circle */
+.logo-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--accent-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  animation: logoGlow 2s infinite;
+}
+
+/* Data Dots */
+.logo-dots {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.dot {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  animation: dotPulse 2s infinite;
+}
+
+.dot-1 {
+  top: 2px;
+  left: 2px;
+  animation-delay: 0s;
+}
+
+.dot-2 {
+  top: 2px;
+  right: 2px;
+  animation-delay: 0.5s;
+}
+
+.dot-3 {
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 1s;
+}
+
+/* Connection Lines */
+.logo-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.line {
+  position: absolute;
+  height: 1px;
+  background: var(--accent-color);
+  animation: lineFlow 3s infinite;
+}
+
+.line-1 {
+  top: 5px;
+  left: 5px;
+  width: 8px;
+  transform: rotate(45deg);
+  animation-delay: 0s;
+}
+
+.line-2 {
+  bottom: 5px;
+  left: 5px;
+  width: 8px;
+  transform: rotate(-45deg);
+  animation-delay: 1s;
+}
+
+/* Logo Animations */
+@keyframes logoGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--accent-color);
+    border-color: var(--accent-color);
+  }
+  50% {
+    box-shadow: 0 0 10px var(--accent-light);
+    border-color: var(--accent-light);
+  }
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes lineFlow {
+  0% {
+    opacity: 0.3;
+    transform: scaleX(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scaleX(0.5);
+  }
 }
 
 /* Brand Text */
