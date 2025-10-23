@@ -21,7 +21,8 @@
 <body class="antialiased text-slate-900 bg-white">
 
 <!-- Navbar (brand gradient only here) -->
-<header class="bg-white text-slate-900 border-b border-slate-100 shadow-sm">
+<!-- html -->
+<header class="bg-white text-slate-900 border-b border-slate-100 shadow-sm relative">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="https://odxio.com" class="flex items-center gap-3">
             <img src="logo.png" alt="ODXIO" class="h-10 w-auto object-contain" />
@@ -31,6 +32,7 @@
             </div>
         </a>
 
+        <!-- Desktop nav -->
         <nav class="hidden md:flex items-center gap-6 text-sm">
             <a href="#features" class="text-slate-700 hover:text-slate-900">Product</a>
             <a href="#docs" class="text-slate-700 hover:text-slate-900">Docs</a>
@@ -39,9 +41,76 @@
             <a href="#get-started" class="ml-4 bg-slate-900 text-white px-4 py-2 rounded-full font-medium shadow-sm hover:opacity-95">Get Started</a>
         </nav>
 
-        <button class="md:hidden text-slate-700 focus:outline-none" aria-label="open menu">☰</button>
+        <!-- Mobile toggle -->
+        <button id="menuToggle" aria-controls="mobileMenu" aria-expanded="false" class="md:hidden p-2 rounded focus:outline-none text-slate-700" aria-label="Open menu">
+            <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobileMenu" class="md:hidden hidden absolute left-0 right-0 bg-white shadow-md border-t border-slate-100 z-40">
+        <div class="px-6 py-4 space-y-3">
+            <a href="#features" class="block text-slate-700 px-2 py-2 rounded hover:bg-slate-50">Product</a>
+            <a href="#docs" class="block text-slate-700 px-2 py-2 rounded hover:bg-slate-50">Docs</a>
+            <a href="#pricing" class="block text-slate-700 px-2 py-2 rounded hover:bg-slate-50">Pricing</a>
+            <a href="#contact" class="block text-slate-700 px-2 py-2 rounded hover:bg-slate-50">Contact</a>
+            <a href="#get-started" class="block mt-1 bg-slate-900 text-white px-4 py-2 rounded-full text-center">Get Started</a>
+        </div>
     </div>
 </header>
+
+<script>
+    (function () {
+      const btn = document.getElementById('menuToggle');
+      const menu = document.getElementById('mobileMenu');
+
+      if (!btn || !menu) return;
+
+      function openMenu() {
+        btn.setAttribute('aria-expanded', 'true');
+        menu.classList.remove('hidden');
+        menu.classList.add('flex', 'flex-col');
+        // prevent background scroll on small screens
+        document.body.style.overflow = 'hidden';
+        // focus first link for accessibility
+        const first = menu.querySelector('a');
+        if (first) first.focus();
+      }
+
+      function closeMenu() {
+        btn.setAttribute('aria-expanded', 'false');
+        menu.classList.add('hidden');
+        menu.classList.remove('flex', 'flex-col');
+        document.body.style.overflow = '';
+        btn.focus();
+      }
+
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        if (expanded) closeMenu(); else openMenu();
+      });
+
+      // close when a mobile link is clicked
+      menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => closeMenu());
+      });
+
+      // ESC to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menu && !menu.classList.contains('hidden')) closeMenu();
+      });
+
+      // optional: close on outside click (not on the header)
+      document.addEventListener('click', (e) => {
+        if (!menu.classList.contains('hidden') && !menu.contains(e.target) && !btn.contains(e.target)) {
+          closeMenu();
+        }
+      });
+    })();
+</script>
+
 
 
 <main>
