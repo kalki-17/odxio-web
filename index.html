@@ -1,151 +1,220 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ODXIO - Open Digital Exchange Platform</title>
-  <link rel="stylesheet" href="style.css?v=3">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ODXIO — Open Digital Exchange</title>
+    <meta name="description" content="ODXIO — Connect the future of Open Banking with secure, scalable APIs." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root{
+          /* brand gradient used only for header & hero (replaces previous sky/blue) */
+          --brand-top: #475569;   /* slate-600 */
+          --brand-bottom: #334155;/* slate-700 */
+          --cta-contrast: #f8fafc;/* light CTA surface */
+        }
+        .brand-gradient{
+          background: linear-gradient(90deg, var(--brand-top), var(--brand-bottom));
+        }
+    </style>
 </head>
-<body>
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="nav-brand">
-        <img src="logo.png" alt="Odxio logo" class="logo" />
-        <div class="brand-text">
-          <span class="brand-name">Odxio</span>
-          <span class="brand-tagline">THE OPEN DIGITAL EXCHANGE</span>
-        </div>
-      </div>
-      <div class="nav-menu">
-        <a href="#dashboard" class="nav-link active">Dashboard</a>
-        <a href="#accounts" class="nav-link">Accounts</a>
-        <a href="#transactions" class="nav-link">Transactions</a>
-        <a href="#analytics" class="nav-link">Analytics</a>
-      </div>
-    </div>
-  </nav>
+<body class="antialiased text-slate-900 bg-white">
 
-  <header class="hero">
-    <div class="hero-content">
-      <p class="hero-description">Revolutionizing financial data integration through secure, seamless APIs and innovative technology</p>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-number">99.9%</span>
-          <span class="stat-label">Uptime</span>
-        </div>
-        <div class="stat">
-          <span class="stat-number">500+</span>
-          <span class="stat-label">Banks</span>
-        </div>
-        <div class="stat">
-          <span class="stat-number">1M+</span>
-          <span class="stat-label">Users</span>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="main-content">
-    <div class="dashboard-grid">
-      <section class="dashboard-card accounts-section">
-        <div class="card-header">
-          <h2><i class="fas fa-wallet"></i> Account Overview</h2>
-          <button id="fetchAccounts" class="btn btn-primary">
-            <i class="fas fa-sync-alt"></i>
-            <span>Refresh Accounts</span>
-          </button>
-        </div>
-        <div class="card-content">
-          <div id="accountsResult" class="data-container">
-            <div class="empty-state">
-              <i class="fas fa-wallet"></i>
-              <p>Click to load your accounts</p>
+<!-- Navbar (brand gradient only here) -->
+<header class="bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        <a href="https://odxio.com" class="flex items-center gap-3">
+            <img src="logo.png" alt="ODXIO" class="h-10 w-auto object-contain bg-transparent rounded" />
+            <div class="flex flex-col leading-tight">
+                <span class="font-semibold tracking-wide text-white">ODXIO</span>
+                <span class="text-xs text-slate-200 uppercase">THE OPEN DIGITAL EXCHANGE</span>
             </div>
-          </div>
-        </div>
-      </section>
+        </a>
 
-      <section class="dashboard-card transactions-section">
-        <div class="card-header">
-          <h2><i class="fas fa-exchange-alt"></i> Recent Transactions</h2>
-          <button id="fetchTransactions" class="btn btn-primary">
-            <i class="fas fa-sync-alt"></i>
-            <span>Load Transactions</span>
-          </button>
-        </div>
-        <div class="card-content">
-          <div id="transactionsResult" class="data-container">
-            <div class="empty-state">
-              <i class="fas fa-exchange-alt"></i>
-              <p>Click to load your transactions</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        <nav class="hidden md:flex items-center gap-6 text-sm text-white">
+            <a href="#features" class="hover:underline">Product</a>
+            <a href="#docs" class="hover:underline">Docs</a>
+            <a href="#pricing" class="hover:underline">Pricing</a>
+            <a href="#contact" class="hover:underline">Contact</a>
+            <a href="#get-started" class="ml-4 bg-slate-100 text-slate-900 px-4 py-2 rounded-full font-medium shadow-sm hover:opacity-95">Get Started</a>
+        </nav>
 
-      <section class="dashboard-card analytics-section">
-        <div class="card-header">
-          <h2><i class="fas fa-chart-pie"></i> Financial Insights</h2>
-        </div>
-        <div class="card-content">
-          <div class="insights-grid">
-            <div class="insight-card">
-              <div class="insight-icon">
-                <i class="fas fa-arrow-up"></i>
-              </div>
-              <div class="insight-content">
-                <span class="insight-value">$4,500</span>
-                <span class="insight-label">Total Balance</span>
-              </div>
-            </div>
-            <div class="insight-card">
-              <div class="insight-icon">
-                <i class="fas fa-calendar"></i>
-              </div>
-              <div class="insight-content">
-                <span class="insight-value">12</span>
-                <span class="insight-label">Transactions</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        <button class="md:hidden text-white" aria-label="open menu">☰</button>
     </div>
-  </main>
+</header>
 
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <div class="footer-brand-text">
-          <h3>Odxio</h3>
-          <p>THE OPEN DIGITAL EXCHANGE</p>
+<main>
+    <!-- Hero: brand gradient applied here only -->
+    <section class="bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div>
+                <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">Connect the Future of Open Banking</h1>
+                <p class="mt-4 text-lg md:text-xl max-w-xl text-slate-200">Secure APIs, developer-first integrations and scalable infrastructure to power financial experiences.</p>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                    <a id="get-started" href="#" class="inline-block bg-slate-100 text-slate-900 font-semibold px-5 py-3 rounded-full shadow">Start free trial</a>
+                    <a href="#docs" class="inline-block border border-white/30 text-white px-5 py-3 rounded-full hover:bg-white/5">Read docs</a>
+                </div>
+
+                <ul class="mt-6 flex flex-wrap gap-3 text-sm text-slate-200">
+                    <li>PCI-level security</li>
+                    <li>99.99% uptime</li>
+                    <li>Global reach</li>
+                </ul>
+            </div>
+
+            <div class="bg-white/10 md:bg-white/20 rounded-xl p-6 shadow-inner backdrop-blur-sm">
+                <div class="w-full h-56 md:h-64 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden">
+                    <!-- illustration -->
+                    <img src="logo.png" alt="illustration" class="h-24 opacity-80" />
+                </div>
+                <div class="mt-5 text-sm text-slate-100">
+                    Quickstart in minutes with SDKs and examples.
+                </div>
+            </div>
         </div>
-        <p>Empowering financial innovation through secure data exchange and cutting-edge technology</p>
-      </div>
-      <div class="footer-section">
-        <h4>Security</h4>
-        <ul>
-          <li>Bank-level encryption</li>
-          <li>SOC 2 compliant</li>
-          <li>GDPR ready</li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Support</h4>
-        <ul>
-          <li>Documentation</li>
-          <li>API Reference</li>
-          <li>Contact Support</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2024 ODX.IO. All rights reserved. • Sandbox Environment</p>
-    </div>
-  </footer>
+    </section>
 
-  <script src="script.js?v=3"></script>
+    <!-- Features (light background, cards are white) -->
+    <section id="features" class="py-16 bg-white text-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-8">Why Choose ODXIO?</h2>
+            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                <article class="bg-white border border-slate-100 p-6 rounded-lg shadow">
+                    <div class="text-slate-500 text-3xl mb-4">🔐</div>
+                    <h3 class="font-semibold mb-2">Security-first</h3>
+                    <p class="text-sm text-slate-600">End-to-end encryption and audited controls.</p>
+                </article>
+
+                <article class="bg-white border border-slate-100 p-6 rounded-lg shadow">
+                    <div class="text-slate-500 text-3xl mb-4">⚡</div>
+                    <h3 class="font-semibold mb-2">Fast integration</h3>
+                    <p class="text-sm text-slate-600">SDKs, examples and hosted sandboxes.</p>
+                </article>
+
+                <article class="bg-white border border-slate-100 p-6 rounded-lg shadow">
+                    <div class="text-slate-500 text-3xl mb-4">📈</div>
+                    <h3 class="font-semibold mb-2">Scalable APIs</h3>
+                    <p class="text-sm text-slate-600">Optimized for production workloads.</p>
+                </article>
+
+                <article class="bg-white border border-slate-100 p-6 rounded-lg shadow">
+                    <div class="text-slate-500 text-3xl mb-4">🔗</div>
+                    <h3 class="font-semibold mb-2">Ecosystem ready</h3>
+                    <p class="text-sm text-slate-600">Unified endpoints to banks and payment rails.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Docs / Resources CTA (light surface) -->
+    <section id="docs" class="py-12 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-6 rounded-lg shadow-sm p-6">
+            <div class="flex-1">
+                <h3 class="text-2xl font-bold text-slate-900">Documentation & Quickstarts</h3>
+                <p class="mt-2 text-slate-600">Step-by-step guides, API reference and SDKs to get you from idea to production fast.</p>
+            </div>
+            <div class="flex gap-3">
+                <a href="https://docs.odxio.com" class="inline-block bg-slate-900 text-white px-4 py-2 rounded-md shadow hover:opacity-95">Open Docs</a>
+                <a href="/blog" class="inline-block border border-slate-200 px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">Blog</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing teaser (light) -->
+    <section id="pricing" class="py-16 bg-white text-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-8">Simple pricing for teams of every size</h2>
+            <div class="grid gap-6 md:grid-cols-3">
+                <div class="p-6 bg-white border border-slate-100 rounded-lg shadow">
+                    <div class="text-sm text-slate-500">Starter</div>
+                    <div class="mt-3 text-2xl font-extrabold text-slate-900">$0 <span class="text-sm font-medium text-slate-500">/ month</span></div>
+                    <p class="mt-3 text-slate-600 text-sm">Ideal for prototypes and small proofs of concept.</p>
+                    <a href="#contact" class="mt-6 inline-block bg-slate-900 text-white px-4 py-2 rounded">Sign up</a>
+                </div>
+
+                <div class="p-6 bg-white border border-slate-100 rounded-lg shadow">
+                    <div class="text-sm text-slate-500">Growth</div>
+                    <div class="mt-3 text-2xl font-extrabold text-slate-900">$299 <span class="text-sm font-medium text-slate-500">/ month</span></div>
+                    <p class="mt-3 text-slate-600 text-sm">For growing apps requiring higher throughput and SLAs.</p>
+                    <a href="#contact" class="mt-6 inline-block bg-slate-900 text-white px-4 py-2 rounded">Get a demo</a>
+                </div>
+
+                <div class="p-6 bg-white border border-slate-100 rounded-lg shadow">
+                    <div class="text-sm text-slate-500">Enterprise</div>
+                    <div class="mt-3 text-2xl font-extrabold text-slate-900">Custom</div>
+                    <p class="mt-3 text-slate-600 text-sm">SLA, onboarding and dedicated support for large scale deployments.</p>
+                    <a href="#contact" class="mt-6 inline-block border border-slate-200 px-4 py-2 rounded text-slate-700">Contact sales</a>
+                </div>
+            </div>
+            <div class="mt-6 text-center text-sm text-slate-500">Detailed pricing and add-ons available on the pricing page.</div>
+        </div>
+    </section>
+
+    <!-- Contact / Newsletter -->
+    <section id="contact" class="py-12 bg-slate-50">
+        <div class="max-w-2xl mx-auto px-6 text-center">
+            <h3 class="text-2xl font-bold text-slate-900">Stay informed</h3>
+            <p class="mt-2 text-slate-600">Subscribe to product updates, security notices and integration guides.</p>
+            <form class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <input aria-label="Email" type="email" required placeholder="you@company.com" class="sm:col-span-2 px-4 py-3 rounded-md border border-slate-200 bg-white text-slate-900" />
+                <button class="bg-slate-900 text-white px-4 py-3 rounded-md">Subscribe</button>
+            </form>
+
+            <div class="mt-8 text-sm text-slate-600">
+                <p>Questions? Email <a href="mailto:sales@odxio.com" class="text-slate-900 underline">sales@odxio.com</a> or request a demo.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer (light surface to keep overall page light) -->
+<footer class="bg-white text-slate-600">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+            <a href="https://odxio.com" class="flex items-center gap-3 text-slate-900">
+                <img src="logo.png" alt="ODXIO" class="h-8 w-auto" />
+                <div class="flex flex-col leading-tight">
+                    <span class="font-semibold text-slate-900">ODXIO</span>
+                    <span class="text-xs text-slate-500">THE OPEN DIGITAL EXCHANGE</span>
+                </div>
+            </a>
+            <p class="mt-3 text-sm text-slate-500">Open Digital Exchange — secure, scalable open banking APIs.</p>
+        </div>
+
+        <div>
+            <h4 class="font-semibold mb-3 text-slate-900">Product</h4>
+            <ul class="space-y-2 text-sm">
+                <li><a href="#features" class="hover:underline text-slate-600">Features</a></li>
+                <li><a href="#docs" class="hover:underline text-slate-600">Documentation</a></li>
+                <li><a href="#pricing" class="hover:underline text-slate-600">Pricing</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-semibold mb-3 text-slate-900">Company</h4>
+            <ul class="space-y-2 text-sm">
+                <li><a href="/about" class="hover:underline text-slate-600">About</a></li>
+                <li><a href="/blog" class="hover:underline text-slate-600">Blog</a></li>
+                <li><a href="/privacy" class="hover:underline text-slate-600">Privacy</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="border-t border-slate-100 py-4">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between text-sm">
+            <div>© <span id="year"></span> ODXIO. All rights reserved.</div>
+            <div class="flex items-center gap-4 text-slate-600">
+                <a href="https://twitter.com" class="hover:text-slate-900">Twitter</a>
+                <a href="https://linkedin.com" class="hover:text-slate-900">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
