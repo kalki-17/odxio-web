@@ -113,6 +113,17 @@ body {
   animation: logoGlow 2s infinite;
 }
 
+.logo {
+  max-width: 100%;        /* never exceed parent width */
+  max-height: 48px;       /* adjust to your header/logo slot height */
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain;    /* preserve aspect ratio and fit inside box */
+  background: transparent; /* use transparent for images with alpha */
+
+}
+
 /* Data Dots */
 .logo-dots {
   position: absolute;
