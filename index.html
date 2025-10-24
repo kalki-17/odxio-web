@@ -59,7 +59,7 @@
             <a href="#get-started" class="block mt-1 bg-slate-900 text-white px-4 py-2 rounded-full text-center">Get Started</a>
         </div>
     </div>
-</header>
+  </header>
 
 <script>
     (function () {
@@ -113,7 +113,7 @@
 
 
 
-<main>
+  <main>
     <!-- Hero: brand gradient applied here only -->
     <section class="bg-slate-900 text-white">
         <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -122,7 +122,7 @@
                 <p class="mt-4 text-lg md:text-xl max-w-xl text-slate-200">Secure APIs, developer-first integrations and scalable infrastructure to power financial experiences.</p>
 
                 <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                    <a id="get-started" href="#" class="inline-block bg-slate-100 text-slate-900 font-semibold px-5 py-3 rounded-full shadow">Start free trial</a>
+                    <button onclick="openAuthModal()" class="inline-block bg-slate-100 text-slate-900 font-semibold px-5 py-3 rounded-full shadow hover:bg-slate-200 transition-all duration-300 hover:scale-105">Start free trial</button>
                     <a href="#docs" class="inline-block border border-white/30 text-white px-5 py-3 rounded-full hover:bg-white/5">Read docs</a>
                 </div>
 
@@ -236,7 +236,295 @@
             </div>
         </div>
     </section>
-</main>
+  </main>
+
+<!-- Stunning Authentication Modal -->
+<div id="authModal" class="fixed inset-0 z-50 hidden">
+    <div class="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300"></div>
+    <div class="fixed inset-0 flex items-center justify-center p-4">
+        <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8 w-full max-w-md shadow-2xl transform transition-all duration-500 scale-95 opacity-0" id="authModalContent">
+            <!-- Modal Header -->
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-2" id="authTitle">Welcome to ODXIO</h2>
+                <p class="text-white/70" id="authSubtitle">Sign in to access your TPP dashboard</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-6" onsubmit="handleLogin(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-white/90 mb-2">Email Address</label>
+                        <input type="email" id="loginEmail" required 
+                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                               placeholder="Enter your email">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-white/90 mb-2">Password</label>
+                        <input type="password" id="loginPassword" required 
+                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                               placeholder="Enter your password">
+                    </div>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <span id="loginBtnText">Sign In</span>
+                    <div id="loginSpinner" class="hidden inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin ml-2"></div>
+                </button>
+                
+                <div class="text-center">
+                    <button type="button" onclick="switchToSignup()" class="text-white/70 hover:text-white transition-colors duration-300">
+                        Don't have an account? <span class="text-blue-400 font-semibold">Sign up</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="space-y-6 hidden" onsubmit="handleSignup(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-white/90 mb-2">Full Name</label>
+                        <input type="text" id="signupName" required 
+                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                               placeholder="Enter your full name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-white/90 mb-2">Email Address</label>
+                        <input type="email" id="signupEmail" required 
+                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                               placeholder="Enter your email">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-white/90 mb-2">Password</label>
+                        <input type="password" id="signupPassword" required 
+                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                               placeholder="Create a password">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-white/90 mb-2">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" required 
+                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                               placeholder="Confirm your password">
+                    </div>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <span id="signupBtnText">Create Account</span>
+                    <div id="signupSpinner" class="hidden inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin ml-2"></div>
+                </button>
+                
+                <div class="text-center">
+                    <button type="button" onclick="switchToLogin()" class="text-white/70 hover:text-white transition-colors duration-300">
+                        Already have an account? <span class="text-green-400 font-semibold">Sign in</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Close Button -->
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-white/70 hover:text-white transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Incredible TPP Dashboard -->
+<div id="tppDashboard" class="hidden fixed inset-0 z-50 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900">
+    <!-- Dashboard Header -->
+    <header class="bg-white/10 backdrop-blur-xl border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-white">ODXIO TPP Dashboard</h1>
+                        <p class="text-white/70">Open Banking Management Center</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-right">
+                        <p class="text-white/90 font-medium" id="userEmail">demo@odxio.com</p>
+                        <p class="text-white/60 text-sm">Online</p>
+                    </div>
+                    <button onclick="logout()" class="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-4 py-2 rounded-xl transition-all duration-300 hover:scale-105">
+                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Welcome Section -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-white mb-2">Welcome back!</h2>
+            <p class="text-white/70 text-lg">Manage your open banking integrations and monitor your TPP performance</p>
+        </div>
+
+        <!-- Quick Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-white/70 text-sm font-medium">Registered Banks</p>
+                        <p class="text-3xl font-bold text-white mt-2">3</p>
+                        <p class="text-green-400 text-sm mt-1">+1 this month</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-white/70 text-sm font-medium">DCR Status</p>
+                        <p class="text-3xl font-bold text-green-400 mt-2">Active</p>
+                        <p class="text-white/60 text-sm mt-1">99.9% uptime</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300 hover:scale-105">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-white/70 text-sm font-medium">Consent Tokens</p>
+                        <p class="text-3xl font-bold text-white mt-2">12</p>
+                        <p class="text-purple-400 text-sm mt-1">+3 today</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <button onclick="registerBank()" class="bg-gradient-to-br from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white p-6 rounded-2xl transition-all duration-300 hover:scale-105 shadow-lg group">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <h3 class="font-bold text-lg">Register New Bank</h3>
+                        <p class="text-blue-100 text-sm">Add a new bank to your TPP</p>
+                    </div>
+                </div>
+            </button>
+
+            <button onclick="viewSandboxData()" class="bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/15 text-white p-6 rounded-2xl transition-all duration-300 hover:scale-105 group">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <h3 class="font-bold text-lg">View Sandbox Data</h3>
+                        <p class="text-white/70 text-sm">Explore test data and APIs</p>
+                    </div>
+                </div>
+            </button>
+
+            <button onclick="viewConsents()" class="bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/15 text-white p-6 rounded-2xl transition-all duration-300 hover:scale-105 group">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <h3 class="font-bold text-lg">View Consents / Users</h3>
+                        <p class="text-white/70 text-sm">Manage user consents</p>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <!-- Open Banking Journey -->
+        <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6">
+            <h3 class="text-xl font-bold text-white mb-6">Open Banking Journey</h3>
+            <div class="space-y-4">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-white font-medium">Step 1: Create Account</p>
+                        <p class="text-white/60 text-sm">Account setup completed</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-white font-medium">Step 2: Register App with Bank</p>
+                        <p class="text-white/60 text-sm">3 banks registered</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-yellow-500/20 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-white/80 font-medium">Step 3: Get Access Token</p>
+                        <p class="text-white/60 text-sm">Pending bank approval</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gray-500/20 rounded-full flex items-center justify-center mr-4">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-white/60 font-medium">Step 4: Access Customer Data</p>
+                        <p class="text-white/50 text-sm">Waiting for token</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 
 <!-- Footer (light surface to keep overall page light) -->
 <footer class="bg-white text-slate-600">
@@ -280,10 +568,297 @@
             </div>
         </div>
     </div>
-</footer>
+  </footer>
 
 <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Authentication Modal Functions
+    function openAuthModal() {
+        const modal = document.getElementById('authModal');
+        const content = document.getElementById('authModalContent');
+        
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        
+        // Animate modal entrance
+        setTimeout(() => {
+            content.classList.remove('scale-95', 'opacity-0');
+            content.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
+
+    function closeAuthModal() {
+        const modal = document.getElementById('authModal');
+        const content = document.getElementById('authModalContent');
+        
+        content.classList.remove('scale-100', 'opacity-100');
+        content.classList.add('scale-95', 'opacity-0');
+        
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    function switchToSignup() {
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const authTitle = document.getElementById('authTitle');
+        const authSubtitle = document.getElementById('authSubtitle');
+        
+        // Fade out current form
+        loginForm.style.opacity = '0';
+        setTimeout(() => {
+            loginForm.classList.add('hidden');
+            signupForm.classList.remove('hidden');
+            authTitle.textContent = 'Create Your Account';
+            authSubtitle.textContent = 'Join ODXIO and start your open banking journey';
+            
+            // Fade in new form
+            signupForm.style.opacity = '0';
+            setTimeout(() => {
+                signupForm.style.opacity = '1';
+            }, 50);
+        }, 200);
+    }
+
+    function switchToLogin() {
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const authTitle = document.getElementById('authTitle');
+        const authSubtitle = document.getElementById('authSubtitle');
+        
+        // Fade out current form
+        signupForm.style.opacity = '0';
+        setTimeout(() => {
+            signupForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+            authTitle.textContent = 'Welcome to ODXIO';
+            authSubtitle.textContent = 'Sign in to access your TPP dashboard';
+            
+            // Fade in new form
+            loginForm.style.opacity = '0';
+            setTimeout(() => {
+                loginForm.style.opacity = '1';
+            }, 50);
+        }, 200);
+    }
+
+    // Authentication Handlers
+    function handleLogin(event) {
+        event.preventDefault();
+        
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        const btnText = document.getElementById('loginBtnText');
+        const spinner = document.getElementById('loginSpinner');
+        
+        // Show loading state
+        btnText.textContent = 'Signing In...';
+        spinner.classList.remove('hidden');
+        
+        // Simulate API call
+        setTimeout(() => {
+            const userData = {
+                email: email,
+                name: email.split('@')[0],
+                loginTime: new Date().toISOString()
+            };
+            
+            localStorage.setItem('odxio_user', JSON.stringify(userData));
+            sessionStorage.setItem('user', email);
+            
+            showSuccess('Welcome back! Redirecting to dashboard...');
+            closeAuthModal();
+            
+            setTimeout(() => {
+                showTPPDashboard();
+            }, 1000);
+            
+            console.log('User logged in:', userData);
+        }, 1500);
+    }
+
+    function handleSignup(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById('signupName').value;
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const confirmPassword = document.getElementById('signupConfirmPassword').value;
+        const btnText = document.getElementById('signupBtnText');
+        const spinner = document.getElementById('signupSpinner');
+        
+        if (password !== confirmPassword) {
+            showError('Passwords do not match!');
+            return;
+        }
+        
+        // Show loading state
+        btnText.textContent = 'Creating Account...';
+        spinner.classList.remove('hidden');
+        
+        // Simulate API call
+        setTimeout(() => {
+            const userData = {
+                name: name,
+                email: email,
+                signupTime: new Date().toISOString()
+            };
+            
+            localStorage.setItem('odxio_user', JSON.stringify(userData));
+            sessionStorage.setItem('user', email);
+            
+            showSuccess('Account created successfully! Redirecting to dashboard...');
+            closeAuthModal();
+            
+            setTimeout(() => {
+                showTPPDashboard();
+            }, 1000);
+            
+            console.log('User signed up:', userData);
+        }, 1500);
+    }
+
+    // TPP Dashboard Functions
+    function showTPPDashboard() {
+        const dashboard = document.getElementById('tppDashboard');
+        const userEmail = document.getElementById('userEmail');
+        
+        // Hide main content
+        document.querySelector('main').style.display = 'none';
+        document.querySelector('footer').style.display = 'none';
+        
+        // Show dashboard
+        dashboard.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        
+        // Update user email
+        const email = sessionStorage.getItem('user') || 'demo@odxio.com';
+        userEmail.textContent = email;
+        
+        // Animate dashboard entrance
+        dashboard.style.opacity = '0';
+        setTimeout(() => {
+            dashboard.style.opacity = '1';
+        }, 100);
+    }
+
+    function logout() {
+        // Clear user data
+        localStorage.removeItem('odxio_user');
+        sessionStorage.removeItem('user');
+        
+        // Hide dashboard
+        const dashboard = document.getElementById('tppDashboard');
+        dashboard.style.opacity = '0';
+        
+        setTimeout(() => {
+            dashboard.classList.add('hidden');
+            
+            // Show main content
+            document.querySelector('main').style.display = 'block';
+            document.querySelector('footer').style.display = 'block';
+            document.body.style.overflow = 'auto';
+            
+            showSuccess('You have been logged out successfully.');
+        }, 300);
+    }
+
+    // TPP Action Functions
+    function registerBank() {
+        showSuccess('Bank registration feature coming soon!');
+        console.log('Register Bank clicked');
+    }
+
+    function viewSandboxData() {
+        showSuccess('Sandbox data viewer coming soon!');
+        console.log('View Sandbox Data clicked');
+    }
+
+    function viewConsents() {
+        showSuccess('Consent management coming soon!');
+        console.log('View Consents clicked');
+    }
+
+    // Notification Functions
+    function showSuccess(message) {
+        const notification = document.createElement('div');
+        notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+        notification.innerHTML = `
+            <div class="flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                ${message}
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.remove('translate-x-full');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.add('translate-x-full');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+
+    function showError(message) {
+        const notification = document.createElement('div');
+        notification.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+        notification.innerHTML = `
+            <div class="flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                ${message}
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.remove('translate-x-full');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.add('translate-x-full');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+
+    // Close modals when clicking outside
+    document.addEventListener('click', function(event) {
+        const authModal = document.getElementById('authModal');
+        if (event.target === authModal) {
+            closeAuthModal();
+        }
+    });
+
+    // Check if user is already logged in on page load
+    window.addEventListener('load', function() {
+        const userEmail = sessionStorage.getItem('user');
+        if (userEmail) {
+            showTPPDashboard();
+        }
+    });
+
+    // Add smooth transitions to forms
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        
+        if (loginForm) loginForm.style.transition = 'opacity 0.3s ease';
+        if (signupForm) signupForm.style.transition = 'opacity 0.3s ease';
+    });
 </script>
 
 </body>
