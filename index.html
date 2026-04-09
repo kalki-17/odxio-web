@@ -1,851 +1,636 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>ODXIO — Open Digital Exchange</title>
-    <meta name="description" content="ODXIO — Connect the future of Open Banking with secure, scalable APIs." />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root{
-          /* brand gradient used only for header & hero (replaces previous sky/blue) */
-          --brand-top: #475569;   /* slate-600 */
-          --brand-bottom: #334155;/* slate-700 */
-          --cta-contrast: #f8fafc;/* light CTA surface */
-        }
-        .brand-gradient{
-          background: linear-gradient(90deg, var(--brand-top), var(--brand-bottom));
-        }
-    </style>
-</head>
-<body class="antialiased text-slate-900 bg-white">
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Odxio Inc.</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Courier+Prime:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; margin: 0; padding: 0; }
+    * { font-family: 'Poppins', sans-serif; }
+    .mono { font-family: 'Courier Prime', monospace; }
 
-<!-- Navbar (brand gradient only here) -->
-<!-- html -->
-<header class="bg-white text-slate-900 border-b border-slate-100 shadow-sm relative">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="https://odxio.com" class="flex items-center gap-3">
-            <img src="logo.png" alt="ODXIO" class="h-10 w-auto object-contain" />
-            <div class="flex flex-col leading-tight">
-                <span class="font-semibold tracking-wide text-slate-900">ODXIO</span>
-                <span class="text-xs text-slate-500 uppercase">THE OPEN DIGITAL EXCHANGE</span>
-            </div>
-        </a>
+    :root {
+      --bg: #ffffff;
+      --surface: #f5f7fb;
+      --text: #0f172a;
+      --text-light: #475569;
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --accent: #7c3aed;
+      --border: #e2e8f0;
+    }
 
-        <!-- Desktop nav -->
-        <nav class="hidden md:flex items-center gap-6 text-sm">
-            <a href="#features" class="text-slate-700 hover:text-slate-900">Product</a>
-            <a href="#docs" class="text-slate-700 hover:text-slate-900">Docs</a>
-            <a href="#pricing" class="text-slate-700 hover:text-slate-900">Pricing</a>
-            <a href="#contact" class="text-slate-700 hover:text-slate-900">Contact</a>
-            <a href="#get-started" class="ml-4 bg-slate-900 text-white px-4 py-2 rounded-full font-medium shadow-sm hover:opacity-95">Get Started</a>
-        </nav>
+    body {
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+    }
 
-        <!-- Mobile toggle -->
-        <button id="menuToggle" aria-controls="mobileMenu" aria-expanded="false" class="md:hidden p-2 rounded focus:outline-none text-slate-700" aria-label="Open menu">
-            <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        </button>
-    </div>
+    /* Navigation */
+    nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-    <!-- Mobile menu (hidden by default) -->
-    <div id="mobileMenu" class="md:hidden hidden absolute left-0 right-0 bg-white shadow-md border-t border-slate-100 z-40">
-        <div class="px-6 py-4 space-y-3">
-            <a href="#features" class="block text-slate-700 px-2 py-2 rounded hover:bg-slate-50">Product</a>
-            <a href="#docs" class="block text-slate-700 px-2 py-2 rounded hover:bg-slate-50">Docs</a>
-            <a href="#pricing" class="block text-slate-700 px-2 py-2 rounded hover:bg-slate-50">Pricing</a>
-            <a href="#contact" class="block text-slate-700 px-2 py-2 rounded hover:bg-slate-50">Contact</a>
-            <a href="#get-started" class="block mt-1 bg-slate-900 text-white px-4 py-2 rounded-full text-center">Get Started</a>
-        </div>
-    </div>
-  </header>
+    .brand-text-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      line-height: 1;
+      min-width: 0;
+    }
 
-<script>
-    (function () {
-      const btn = document.getElementById('menuToggle');
-      const menu = document.getElementById('mobileMenu');
+    .brand-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
 
-      if (!btn || !menu) return;
+    .brand-subtitle {
+      font-size: clamp(12px, 1.2vw, 17px);
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      color: #0f172a;
+      text-transform: uppercase;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
 
-      function openMenu() {
-        btn.setAttribute('aria-expanded', 'true');
-        menu.classList.remove('hidden');
-        menu.classList.add('flex', 'flex-col');
-        // prevent background scroll on small screens
-        document.body.style.overflow = 'hidden';
-        // focus first link for accessibility
-        const first = menu.querySelector('a');
-        if (first) first.focus();
+    @media (max-width: 640px) {
+      .brand-title {
+        font-size: clamp(24px, 7vw, 36px);
       }
 
-      function closeMenu() {
-        btn.setAttribute('aria-expanded', 'false');
-        menu.classList.add('hidden');
-        menu.classList.remove('flex', 'flex-col');
-        document.body.style.overflow = '';
-        btn.focus();
+      .brand-subtitle {
+        font-size: clamp(9px, 2.2vw, 12px);
+        letter-spacing: 0.8px;
       }
+    }
 
-      btn.addEventListener('click', () => {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        if (expanded) closeMenu(); else openMenu();
-      });
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #ffffff 0%, #f5f7fb 100%);
+    }
 
-      // close when a mobile link is clicked
-      menu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => closeMenu());
-      });
+    /* Domain Cards */
+    .domain-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
 
-      // ESC to close
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && menu && !menu.classList.contains('hidden')) closeMenu();
-      });
+    .domain-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 12px 40px rgba(37, 99, 235, 0.12);
+      transform: translateY(-4px);
+    }
 
-      // optional: close on outside click (not on the header)
-      document.addEventListener('click', (e) => {
-        if (!menu.classList.contains('hidden') && !menu.contains(e.target) && !btn.contains(e.target)) {
-          closeMenu();
-        }
-      });
-    })();
-</script>
+    .domain-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(124, 58, 237, 0.08));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
 
+    /* Buttons */
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
 
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+      transform: translateY(-2px);
+    }
 
-  <main>
-    <!-- Hero: brand gradient applied here only -->
-    <section class="bg-slate-900 text-white">
-        <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <div>
-                <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">Connect the Future of Open Banking</h1>
-                <p class="mt-4 text-lg md:text-xl max-w-xl text-slate-200">Secure APIs, developer-first integrations and scalable infrastructure to power financial experiences.</p>
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 10px 26px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
 
-                <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                    <button onclick="openAuthModal()" class="inline-block bg-slate-100 text-slate-900 font-semibold px-5 py-3 rounded-full shadow hover:bg-slate-200 transition-all duration-300 hover:scale-105">Start free trial</button>
-                    <a href="#docs" class="inline-block border border-white/30 text-white px-5 py-3 rounded-full hover:bg-white/5">Read docs</a>
-                </div>
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
 
-                <ul class="mt-6 flex flex-wrap gap-3 text-sm text-slate-200">
-                    <li>PCI-level security</li>
-                    <li>99.99% uptime</li>
-                    <li>Global reach</li>
-                </ul>
-            </div>
+    /* Animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease forwards;
+    }
 
-            <div class="bg-white/10 md:bg-white/20 rounded-xl p-6 shadow-inner backdrop-blur-sm">
-                <div class="w-full h-56 md:h-64 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden">
-                    <!-- illustration -->
-                    <img src="logo.png" alt="illustration" class="h-24 opacity-80" />
-                </div>
-                <div class="mt-5 text-sm text-slate-100">
-                    Quickstart in minutes with SDKs and examples.
-                </div>
-            </div>
-        </div>
-    </section>
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-    <!-- Features (light background, cards are white) -->
-    <section id="features" class="py-16 bg-white text-slate-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-8">Why Choose ODXIO?</h2>
-            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                <article class="bg-white border border-slate-100 p-6 rounded-lg shadow">
-                    <div class="text-slate-500 text-3xl mb-4">🔐</div>
-                    <h3 class="font-semibold mb-2">Security-first</h3>
-                    <p class="text-sm text-slate-600">End-to-end encryption and audited controls.</p>
-                </article>
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-                <article class="bg-white border border-slate-100 p-6 rounded-lg shadow">
-                    <div class="text-slate-500 text-3xl mb-4">⚡</div>
-                    <h3 class="font-semibold mb-2">Fast integration</h3>
-                    <p class="text-sm text-slate-600">SDKs, examples and hosted sandboxes.</p>
-                </article>
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
 
-                <article class="bg-white border border-slate-100 p-6 rounded-lg shadow">
-                    <div class="text-slate-500 text-3xl mb-4">📈</div>
-                    <h3 class="font-semibold mb-2">Scalable APIs</h3>
-                    <p class="text-sm text-slate-600">Optimized for production workloads.</p>
-                </article>
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
 
-                <article class="bg-white border border-slate-100 p-6 rounded-lg shadow">
-                    <div class="text-slate-500 text-3xl mb-4">🔗</div>
-                    <h3 class="font-semibold mb-2">Ecosystem ready</h3>
-                    <p class="text-sm text-slate-600">Unified endpoints to banks and payment rails.</p>
-                </article>
-            </div>
-        </div>
-    </section>
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-dark);
+    }
 
-    <!-- Docs / Resources CTA (light surface) -->
-    <section id="docs" class="py-12 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-6 rounded-lg shadow-sm p-6">
-            <div class="flex-1">
-                <h3 class="text-2xl font-bold text-slate-900">Documentation & Quickstarts</h3>
-                <p class="mt-2 text-slate-600">Step-by-step guides, API reference and SDKs to get you from idea to production fast.</p>
-            </div>
-            <div class="flex gap-3">
-                <a href="https://docs.odxio.com" class="inline-block bg-slate-900 text-white px-4 py-2 rounded-md shadow hover:opacity-95">Open Docs</a>
-                <a href="/blog" class="inline-block border border-slate-200 px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100">Blog</a>
-            </div>
-        </div>
-    </section>
+    .section-line {
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
 
-    <!-- Pricing teaser (light) -->
-    <section id="pricing" class="py-16 bg-white text-slate-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-8">Simple pricing for teams of every size</h2>
-            <div class="grid gap-6 md:grid-cols-3">
-                <div class="p-6 bg-white border border-slate-100 rounded-lg shadow">
-                    <div class="text-sm text-slate-500">Starter</div>
-                    <div class="mt-3 text-2xl font-extrabold text-slate-900">$0 <span class="text-sm font-medium text-slate-500">/ month</span></div>
-                    <p class="mt-3 text-slate-600 text-sm">Ideal for prototypes and small proofs of concept.</p>
-                    <a href="#contact" class="mt-6 inline-block bg-slate-900 text-white px-4 py-2 rounded">Sign up</a>
-                </div>
+    .grid-col-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
 
-                <div class="p-6 bg-white border border-slate-100 rounded-lg shadow">
-                    <div class="text-sm text-slate-500">Growth</div>
-                    <div class="mt-3 text-2xl font-extrabold text-slate-900">$299 <span class="text-sm font-medium text-slate-500">/ month</span></div>
-                    <p class="mt-3 text-slate-600 text-sm">For growing apps requiring higher throughput and SLAs.</p>
-                    <a href="#contact" class="mt-6 inline-block bg-slate-900 text-white px-4 py-2 rounded">Get a demo</a>
-                </div>
+    /* Contact Modal */
+    .contact-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
 
-                <div class="p-6 bg-white border border-slate-100 rounded-lg shadow">
-                    <div class="text-sm text-slate-500">Enterprise</div>
-                    <div class="mt-3 text-2xl font-extrabold text-slate-900">Custom</div>
-                    <p class="mt-3 text-slate-600 text-sm">SLA, onboarding and dedicated support for large scale deployments.</p>
-                    <a href="#contact" class="mt-6 inline-block border border-slate-200 px-4 py-2 rounded text-slate-700">Contact sales</a>
-                </div>
-            </div>
-            <div class="mt-6 text-center text-sm text-slate-500">Detailed pricing and add-ons available on the pricing page.</div>
-        </div>
-    </section>
+    .contact-overlay.open {
+      display: flex;
+    }
 
-    <!-- Contact / Newsletter -->
-    <section id="contact" class="py-12 bg-slate-50">
-        <div class="max-w-2xl mx-auto px-6 text-center">
-            <h3 class="text-2xl font-bold text-slate-900">Stay informed</h3>
-            <p class="mt-2 text-slate-600">Subscribe to product updates, security notices and integration guides.</p>
-            <form class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <input aria-label="Email" type="email" required placeholder="you@company.com" class="sm:col-span-2 px-4 py-3 rounded-md border border-slate-200 bg-white text-slate-900" />
-                <button class="bg-slate-900 text-white px-4 py-3 rounded-md">Subscribe</button>
-            </form>
+    .contact-modal {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 64px rgba(15, 23, 42, 0.18);
+      position: relative;
+      animation: fadeUp 0.3s ease forwards;
+    }
 
-            <div class="mt-8 text-sm text-slate-600">
-                <p>Questions? Email <a href="mailto:sales@odxio.com" class="text-slate-900 underline">sales@odxio.com</a> or request a demo.</p>
-            </div>
-        </div>
-    </section>
-  </main>
+    @media (max-width: 640px) {
+      .contact-modal {
+        padding: 24px 18px;
+        border-radius: 12px;
+      }
+    }
 
-<!-- Stunning Authentication Modal -->
-<div id="authModal" class="fixed inset-0 z-50 hidden">
-    <div class="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300"></div>
-    <div class="fixed inset-0 flex items-center justify-center p-4">
-        <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8 w-full max-w-md shadow-2xl transform transition-all duration-500 scale-95 opacity-0" id="authModalContent">
-            <!-- Modal Header -->
-            <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                </div>
-                <h2 class="text-2xl font-bold text-white mb-2" id="authTitle">Welcome to ODXIO</h2>
-                <p class="text-white/70" id="authSubtitle">Sign in to access your TPP dashboard</p>
-            </div>
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 8px 0 12px;
+    }
 
-            <!-- Login Form -->
-            <form id="loginForm" class="space-y-6" onsubmit="handleLogin(event)">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-white/90 mb-2">Email Address</label>
-                        <input type="email" id="loginEmail" required 
-                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                               placeholder="Enter your email">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-white/90 mb-2">Password</label>
-                        <input type="password" id="loginPassword" required 
-                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                               placeholder="Enter your password">
-                    </div>
-                </div>
-                
-                <button type="submit" 
-                        class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                    <span id="loginBtnText">Sign In</span>
-                    <div id="loginSpinner" class="hidden inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin ml-2"></div>
-                </button>
-                
-                <div class="text-center">
-                    <button type="button" onclick="switchToSignup()" class="text-white/70 hover:text-white transition-colors duration-300">
-                        Don't have an account? <span class="text-blue-400 font-semibold">Sign up</span>
-                    </button>
-                </div>
-            </form>
+    .mobile-menu.open { display: flex; }
 
-            <!-- Signup Form -->
-            <form id="signupForm" class="space-y-6 hidden" onsubmit="handleSignup(event)">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-white/90 mb-2">Full Name</label>
-                        <input type="text" id="signupName" required 
-                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                               placeholder="Enter your full name">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-white/90 mb-2">Email Address</label>
-                        <input type="email" id="signupEmail" required 
-                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                               placeholder="Enter your email">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-white/90 mb-2">Password</label>
-                        <input type="password" id="signupPassword" required 
-                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                               placeholder="Create a password">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-white/90 mb-2">Confirm Password</label>
-                        <input type="password" id="signupConfirmPassword" required 
-                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                               placeholder="Confirm your password">
-                    </div>
-                </div>
-                
-                <button type="submit" 
-                        class="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                    <span id="signupBtnText">Create Account</span>
-                    <div id="signupSpinner" class="hidden inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin ml-2"></div>
-                </button>
-                
-                <div class="text-center">
-                    <button type="button" onclick="switchToLogin()" class="text-white/70 hover:text-white transition-colors duration-300">
-                        Already have an account? <span class="text-green-400 font-semibold">Sign in</span>
-                    </button>
-                </div>
-            </form>
+    .mobile-menu a, .mobile-menu button {
+      padding: 12px 24px;
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+    }
 
-            <!-- Close Button -->
-            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-white/70 hover:text-white transition-colors duration-300">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-        </div>
+    .mobile-menu a:hover, .mobile-menu button:hover {
+      background: var(--surface);
+    }
+
+    .contact-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--text-light);
+      line-height: 1;
+    }
+
+    .contact-close:hover { color: var(--text); }
+
+    .contact-info-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+
+    .contact-info-row a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .contact-info-row a:hover { text-decoration: underline; }
+
+    .contact-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      background: var(--surface);
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .contact-input:focus { border-color: var(--primary); }
+
+    .contact-input.textarea { resize: vertical; min-height: 110px; }
+
+    .contact-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    #contact-success {
+      display: none;
+      text-align: center;
+      padding: 16px 0 4px;
+      color: #16a34a;
+      font-weight: 600;
+      font-size: 15px;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div id="app-wrapper" class="w-full h-full overflow-auto">
+   <!-- Navigation -->
+  <nav class="w-full px-6 md:px-12 py-1.5">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
+    <div class="flex items-center min-w-0 justify-start">
+      <div class="brand-text-wrap">
+        <div class="brand-title">ODXIO</div>
+       <div class="brand-subtitle">Open Digital Exchange &amp; Innovations</div>
+      </div>
+     </div>
+    <div class="hidden md:flex items-center gap-8">
+     <a href="#domains" style="color: var(--text-light);" class="text-sm hover:text-black transition-colors">Domains</a> <a href="#innovations" style="color: var(--text-light);" class="text-sm hover:text-black transition-colors">Innovations</a> <a href="#about" style="color: var(--text-light);" class="text-sm hover:text-black transition-colors">About</a> <button onclick="document.getElementById('contact-overlay').classList.add('open')" style="color: var(--text-light); background:none; border:none; cursor:pointer; padding:0;" class="text-sm hover:text-black transition-colors">Contact</button>
+    </div><button id="mobile-menu-btn" class="md:hidden p-2" onclick="document.getElementById('mobile-menu').classList.toggle('open')"> <i data-lucide="menu" style="width: 24px; height: 24px; color: var(--text);"></i> </button>
     </div>
-</div>
+    <div id="mobile-menu" class="mobile-menu md:hidden">
+     <a href="#domains" onclick="document.getElementById('mobile-menu').classList.remove('open')">Domains</a>
+      <a href="#innovations" onclick="document.getElementById('mobile-menu').classList.remove('open')">Innovations</a>
+     <a href="#about" onclick="document.getElementById('mobile-menu').classList.remove('open')">About</a>
+     <button onclick="document.getElementById('mobile-menu').classList.remove('open');document.getElementById('contact-overlay').classList.add('open')">Contact</button>
+    </div>
+   </nav><!-- Hero Section -->
+   <section class="hero-section w-full px-6 md:px-12 py-20 md:py-32">
+    <div class="max-w-6xl mx-auto">
+     <h1 id="hero-headline" class="text-xl md:text-3xl font-bold mt-4 leading-tight fade-up" style="animation-delay: 0.1s;">Connecting open<br>
+       ecosystems<span style="color: var(--primary);">.</span></h1>
+     <p id="hero-subtext" class="text-lg md:text-xl mt-6 leading-relaxed fade-up" style="animation-delay: 0.2s; color: var(--text-light); max-width: 600px;">Building bridges between industries through open standards, interoperable platforms, and transparent data exchange.</p>
+     <div class="flex flex-wrap gap-4 mt-10 fade-up" style="animation-delay: 0.3s;">
+      <button id="cta-btn" class="btn-primary">Explore Our Vision</button> <button class="btn-secondary">Get in Touch</button>
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="w-full px-6 md:px-12 py-20 md:py-32" style="background: var(--surface);">
+    <div class="max-w-6xl mx-auto">
+     <div class="flex items-center gap-4 mb-12 fade-up" style="animation-delay: 0.1s;">
+      <div class="section-line"></div><span class="mono text-xl font-extrabold" style="color: var(--text-light); letter-spacing: 1px;">ABOUT ODXIO</span>
+     </div>
+     <div class="grid md:grid-cols-2 gap-12 fade-up" style="animation-delay: 0.2s;">
+      <div>
+       <h2 class="text-3xl md:text-4xl font-bold leading-snug">An open future,<br>
+         built together<span style="color: var(--primary);">.</span></h2>
+      </div>
+      <div style="color: var(--text-light);" class="space-y-4">
+       <p>Odxio Inc. champions the open ecosystem philosophy — where data flows freely, securely, and equitably across industries. We believe that openness drives innovation, inclusion, and trust.</p>
+       <p>From open banking APIs to interoperable health records, our mission is to create the infrastructure and standards that power a connected, transparent digital world.</p>
+      </div>
+     </div>
+    </div>
+    </section><!-- Domains Section -->
+    <section id="domains" class="w-full px-6 md:px-12 py-20 md:py-32">
+     <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-4 mb-12 fade-up" style="animation-delay: 0.1s;">
+      <div class="section-line"></div><span class="mono text-xl font-extrabold" style="color: var(--text-light); letter-spacing: 1px;">OUR DOMAINS</span>
+      </div>
+      <div id="domains-grid" class="grid-col-3"></div>
+     </div>
+    </section><!-- Innovations Section -->
+    <section id="innovations" class="w-full px-6 md:px-12 py-20 md:py-28" style="background: var(--surface);">
+     <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-4 mb-12 fade-up" style="animation-delay: 0.1s;">
+      <div class="section-line"></div><span class="mono text-xl font-extrabold" style="color: var(--text-light); letter-spacing: 1px;">INNOVATIONS</span>
+      </div>
+      <p class="text-base md:text-lg mb-10 fade-up" style="animation-delay: 0.18s; color: var(--text-light); max-width: 840px;">
+      Implementation hub for new technologies applicable across ODXIO ecosystems. Use this section to publish practical pilots, reference architectures, and production-ready deployment patterns.
+      </p>
+      <div class="grid-col-3">
+      <div class="domain-card fade-up" style="animation-delay: 0.24s;">
+       <span class="mono text-xs font-bold" style="color: var(--primary); letter-spacing: 0.5px;">IMPLEMENTATION TRACK</span>
+       <h3 class="text-xl font-bold mt-3 mb-2">AI Interoperability Layer</h3>
+       <p class="text-sm" style="color: var(--text-light);">Cross-domain model gateway for banking, health, and identity workflows with standardized API contracts.</p>
+      </div>
+      <div class="domain-card fade-up" style="animation-delay: 0.32s;">
+       <span class="mono text-xs font-bold" style="color: var(--primary); letter-spacing: 0.5px;">IMPLEMENTATION TRACK</span>
+       <h3 class="text-xl font-bold mt-3 mb-2">Zero-Trust Data Exchange</h3>
+       <p class="text-sm" style="color: var(--text-light);">Policy-based sharing with consent enforcement, traceability, and secure federation between ecosystem partners.</p>
+      </div>
+      <div class="domain-card fade-up" style="animation-delay: 0.4s;">
+       <span class="mono text-xs font-bold" style="color: var(--primary); letter-spacing: 0.5px;">IMPLEMENTATION TRACK</span>
+       <h3 class="text-xl font-bold mt-3 mb-2">Real-Time Event Fabric</h3>
+       <p class="text-sm" style="color: var(--text-light);">Event-driven integration backbone for low-latency orchestration across ODXIO partner systems.</p>
+      </div>
+      </div>
+     </div>
+   </section><!-- Footer -->
+   <footer class="w-full px-6 md:px-12 py-8 border-t" style="border-color: var(--border);">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+     <p class="text-xs mono" style="color: var(--text-light);">© 2025 Odxio Inc. All rights reserved.</p>
+     <div class="flex gap-6 text-xs">
+      <a href="#" style="color: var(--text-light);" class="hover:text-black transition-colors">Privacy</a> <a href="#" style="color: var(--text-light);" class="hover:text-black transition-colors">Terms</a> <a href="#" style="color: var(--text-light);" class="hover:text-black transition-colors">Careers</a>
+     </div>
+    </div>
+   </footer>
+  </div>
 
-<!-- ODXIO TPP Dashboard -->
-<div id="tppDashboard" class="hidden fixed inset-0 z-50 bg-white">
-    <!-- Dashboard Header -->
-    <header class="bg-white text-slate-900 border-b border-slate-100 shadow-sm">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="https://odxio.com" class="flex items-center gap-3">
-                <img src="logo.png" alt="ODXIO" class="h-10 w-auto object-contain" />
-                <div class="flex flex-col leading-tight">
-                    <span class="font-semibold tracking-wide text-slate-900">ODXIO</span>
-                    <span class="text-xs text-slate-500 uppercase">THE OPEN DIGITAL EXCHANGE</span>
-                </div>
-            </a>
+  <!-- Contact Modal -->
+  <div id="contact-overlay" class="contact-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+   <div class="contact-modal">
+    <button class="contact-close" onclick="document.getElementById('contact-overlay').classList.remove('open')">&times;</button>
+    <h2 class="text-2xl font-bold mb-1" style="color:var(--text);">Get in Touch</h2>
+    <p class="text-sm mb-6" style="color:var(--text-light);">We&apos;d love to hear from you. Send a message or reach us directly.</p>
 
-            <div class="flex items-center space-x-4">
-                <span id="userEmail" class="text-sm text-slate-600">demo@odxio.com</span>
-                <button onclick="logout()" class="text-sm text-slate-500 hover:text-slate-700 transition-colors duration-300">
-                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                    </svg>
-                    Logout
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Dashboard Content -->
-    <main class="max-w-7xl mx-auto px-6 py-8">
-        <!-- Welcome Section -->
-        <div class="mb-8">
-            <h2 class="text-3xl font-bold text-slate-900 mb-2">TPP Dashboard</h2>
-            <p class="text-slate-600 text-lg">Manage your open banking integrations and monitor your TPP performance</p>
-        </div>
-
-        <!-- Quick Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white border border-slate-100 p-6 rounded-lg shadow hover:shadow-md transition-all duration-300">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-slate-500 text-sm font-medium">Registered Banks</p>
-                        <p class="text-3xl font-bold text-slate-900 mt-2">3</p>
-                        <p class="text-green-600 text-sm mt-1">+1 this month</p>
-                    </div>
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white border border-slate-100 p-6 rounded-lg shadow hover:shadow-md transition-all duration-300">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-slate-500 text-sm font-medium">DCR Status</p>
-                        <p class="text-3xl font-bold text-green-600 mt-2">Active</p>
-                        <p class="text-slate-500 text-sm mt-1">99.9% uptime</p>
-                    </div>
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white border border-slate-100 p-6 rounded-lg shadow hover:shadow-md transition-all duration-300">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-slate-500 text-sm font-medium">Consent Tokens</p>
-                        <p class="text-3xl font-bold text-slate-900 mt-2">12</p>
-                        <p class="text-blue-600 text-sm mt-1">+3 today</p>
-                    </div>
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Action Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <button onclick="registerBank()" class="bg-slate-900 text-white p-6 rounded-lg hover:bg-slate-800 transition-colors text-left shadow hover:shadow-md">
-                <div class="flex items-center">
-                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    <div>
-                        <h3 class="font-semibold">Register New Bank</h3>
-                        <p class="text-sm text-slate-300">Add a new bank to your TPP</p>
-                    </div>
-                </div>
-            </button>
-
-            <button onclick="viewSandboxData()" class="bg-white border border-slate-200 text-slate-700 p-6 rounded-lg hover:bg-slate-50 transition-colors text-left shadow hover:shadow-md">
-                <div class="flex items-center">
-                    <svg class="w-6 h-6 mr-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                    </svg>
-                    <div>
-                        <h3 class="font-semibold">View Sandbox Data</h3>
-                        <p class="text-sm text-slate-500">Explore test data and APIs</p>
-                    </div>
-                </div>
-            </button>
-
-            <button onclick="viewConsents()" class="bg-white border border-slate-200 text-slate-700 p-6 rounded-lg hover:bg-slate-50 transition-colors text-left shadow hover:shadow-md">
-                <div class="flex items-center">
-                    <svg class="w-6 h-6 mr-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                    </svg>
-                    <div>
-                        <h3 class="font-semibold">View Consents / Users</h3>
-                        <p class="text-sm text-slate-500">Manage user consents</p>
-                    </div>
-                </div>
-            </button>
-        </div>
-
-        <!-- Open Banking Journey -->
-        <div class="bg-white border border-slate-100 p-6 rounded-lg shadow">
-            <h3 class="text-lg font-semibold text-slate-900 mb-6">Open Banking Journey</h3>
-            <div class="space-y-4">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-sm font-medium text-slate-900">Step 1: Create Account</p>
-                        <p class="text-xs text-slate-500">Account setup completed</p>
-                    </div>
-                </div>
-
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-sm font-medium text-slate-900">Step 2: Register App with Bank</p>
-                        <p class="text-xs text-slate-500">3 banks registered</p>
-                    </div>
-                </div>
-
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
-                        <svg class="w-4 h-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-sm font-medium text-slate-500">Step 3: Get Access Token</p>
-                        <p class="text-xs text-slate-400">Pending bank approval</p>
-                    </div>
-                </div>
-
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-sm font-medium text-slate-500">Step 4: Access Customer Data</p>
-                        <p class="text-xs text-slate-400">Waiting for token</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-</div>
-
-<!-- Footer (light surface to keep overall page light) -->
-<footer class="bg-white text-slate-600">
-    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div>
-            <a href="https://odxio.com" class="flex items-center gap-3 text-slate-900">
-                <img src="logo.png" alt="ODXIO" class="h-8 w-auto" />
-                <div class="flex flex-col leading-tight">
-                    <span class="font-semibold text-slate-900">ODXIO</span>
-                    <span class="text-xs text-slate-500">THE OPEN DIGITAL EXCHANGE</span>
-                </div>
-            </a>
-            <p class="mt-3 text-sm text-slate-500">Open Digital Exchange — secure, scalable open banking APIs.</p>
-        </div>
-
-        <div>
-            <h4 class="font-semibold mb-3 text-slate-900">Product</h4>
-            <ul class="space-y-2 text-sm">
-                <li><a href="#features" class="hover:underline text-slate-600">Features</a></li>
-                <li><a href="#docs" class="hover:underline text-slate-600">Documentation</a></li>
-                <li><a href="#pricing" class="hover:underline text-slate-600">Pricing</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h4 class="font-semibold mb-3 text-slate-900">Company</h4>
-            <ul class="space-y-2 text-sm">
-                <li><a href="/about" class="hover:underline text-slate-600">About</a></li>
-                <li><a href="/blog" class="hover:underline text-slate-600">Blog</a></li>
-                <li><a href="/privacy" class="hover:underline text-slate-600">Privacy</a></li>
-            </ul>
-        </div>
+    <div class="contact-info-row">
+     <i data-lucide="mail" style="width:16px;height:16px;flex-shrink:0;"></i>
+     <span>Email: <a href="mailto:info@odxio.com">info@odxio.com</a></span>
+    </div>
+    <div class="contact-info-row">
+     <i data-lucide="phone" style="width:16px;height:16px;flex-shrink:0;"></i>
+     <span>Phone: <a href="tel:+11234567890">+1 (123) 456-7890</a></span>
     </div>
 
-    <div class="border-t border-slate-100 py-4">
-        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between text-sm">
-            <div>© <span id="year"></span> ODXIO. All rights reserved.</div>
-            <div class="flex items-center gap-4 text-slate-600">
-                <a href="https://twitter.com" class="hover:text-slate-900">Twitter</a>
-                <a href="https://linkedin.com" class="hover:text-slate-900">LinkedIn</a>
-            </div>
-        </div>
-    </div>
-  </footer>
+    <hr class="contact-divider">
 
-<script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    <form id="contact-form" onsubmit="handleContactSubmit(event)">
+     <div class="flex flex-col gap-4">
+      <div class="grid md:grid-cols-2 gap-4">
+       <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold" style="color:var(--text-light);letter-spacing:.5px;">FULL NAME</label>
+        <input type="text" name="name" required placeholder="Jane Smith" class="contact-input">
+       </div>
+       <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold" style="color:var(--text-light);letter-spacing:.5px;">EMAIL</label>
+        <input type="email" name="email" required placeholder="jane@company.com" class="contact-input">
+       </div>
+      </div>
+      <div class="flex flex-col gap-1">
+       <label class="text-xs font-semibold" style="color:var(--text-light);letter-spacing:.5px;">SUBJECT</label>
+       <input type="text" name="subject" placeholder="How can we help?" class="contact-input">
+      </div>
+      <div class="flex flex-col gap-1">
+       <label class="text-xs font-semibold" style="color:var(--text-light);letter-spacing:.5px;">MESSAGE</label>
+       <textarea name="message" required placeholder="Tell us about your project or question..." class="contact-input textarea"></textarea>
+      </div>
+      <button type="submit" class="btn-primary w-full" style="width:100%;margin-top:4px;">Send Message</button>
+     </div>
+    </form>
+    <div id="contact-success">&#10003; Message sent! We&apos;ll be in touch shortly.<br><br><button class="btn-primary" style="margin-top:8px;" onclick="closeContactSuccess()">OK</button></div>
+   </div>
+  </div>
 
-    // Authentication Modal Functions
-    function openAuthModal() {
-        const modal = document.getElementById('authModal');
-        const content = document.getElementById('authModalContent');
-        
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        
-        // Animate modal entrance
-        setTimeout(() => {
-            content.classList.remove('scale-95', 'opacity-0');
-            content.classList.add('scale-100', 'opacity-100');
-        }, 10);
-    }
+  <script>
+    const domains = [
+      { key: 'banking', label: 'Open Banking', desc: 'Secure, standardized APIs enabling seamless financial data sharing between institutions and fintechs.' },
+      { key: 'health', label: 'Open Health', desc: 'Interoperable health data ecosystems that empower patients and providers with unified records.' },
+      { key: 'wealth', label: 'Open Wealth', desc: 'Transparent wealth management through open investment data and advisory interoperability.' },
+      { key: 'data', label: 'Open Data', desc: 'Frameworks for ethical, accessible data exchange that fuel research and public good.' },
+      { key: 'identity', label: 'Open Identity', desc: 'Decentralized, user-owned identity solutions for secure and private digital interactions.' },
+      { key: 'commerce', label: 'Open Commerce', desc: 'Unified commerce APIs connecting merchants, platforms, and consumers in an open marketplace.' }
+    ];
 
-    function closeAuthModal() {
-        const modal = document.getElementById('authModal');
-        const content = document.getElementById('authModalContent');
-        
-        content.classList.remove('scale-100', 'opacity-100');
-        content.classList.add('scale-95', 'opacity-0');
-        
-        setTimeout(() => {
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }, 300);
-    }
+    const icons = {
+      banking: 'landmark',
+      health: 'heart-pulse',
+      wealth: 'trending-up',
+      data: 'database',
+      identity: 'shield-check',
+      commerce: 'shopping-bag'
+    };
 
-    function switchToSignup() {
-        const loginForm = document.getElementById('loginForm');
-        const signupForm = document.getElementById('signupForm');
-        const authTitle = document.getElementById('authTitle');
-        const authSubtitle = document.getElementById('authSubtitle');
-        
-        // Fade out current form
-        loginForm.style.opacity = '0';
-        setTimeout(() => {
-            loginForm.classList.add('hidden');
-            signupForm.classList.remove('hidden');
-            authTitle.textContent = 'Create Your Account';
-            authSubtitle.textContent = 'Join ODXIO and start your open banking journey';
-            
-            // Fade in new form
-            signupForm.style.opacity = '0';
-            setTimeout(() => {
-                signupForm.style.opacity = '1';
-            }, 50);
-        }, 200);
-    }
+    function renderDomains() {
+      const grid = document.getElementById('domains-grid');
+      grid.innerHTML = '';
 
-    function switchToLogin() {
-        const loginForm = document.getElementById('loginForm');
-        const signupForm = document.getElementById('signupForm');
-        const authTitle = document.getElementById('authTitle');
-        const authSubtitle = document.getElementById('authSubtitle');
-        
-        // Fade out current form
-        signupForm.style.opacity = '0';
-        setTimeout(() => {
-            signupForm.classList.add('hidden');
-            loginForm.classList.remove('hidden');
-            authTitle.textContent = 'Welcome to ODXIO';
-            authSubtitle.textContent = 'Sign in to access your TPP dashboard';
-            
-            // Fade in new form
-            loginForm.style.opacity = '0';
-            setTimeout(() => {
-                loginForm.style.opacity = '1';
-            }, 50);
-        }, 200);
-    }
-
-    // Authentication Handlers
-    function handleLogin(event) {
-        event.preventDefault();
-        
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
-        const btnText = document.getElementById('loginBtnText');
-        const spinner = document.getElementById('loginSpinner');
-        
-        // Show loading state
-        btnText.textContent = 'Signing In...';
-        spinner.classList.remove('hidden');
-        
-        // Simulate API call
-        setTimeout(() => {
-            const userData = {
-                email: email,
-                name: email.split('@')[0],
-                loginTime: new Date().toISOString()
-            };
-            
-            localStorage.setItem('odxio_user', JSON.stringify(userData));
-            sessionStorage.setItem('user', email);
-            
-            showSuccess('Welcome back! Redirecting to dashboard...');
-            closeAuthModal();
-            
-            setTimeout(() => {
-                showTPPDashboard();
-            }, 1000);
-            
-            console.log('User logged in:', userData);
-        }, 1500);
-    }
-
-    function handleSignup(event) {
-        event.preventDefault();
-        
-        const name = document.getElementById('signupName').value;
-        const email = document.getElementById('signupEmail').value;
-        const password = document.getElementById('signupPassword').value;
-        const confirmPassword = document.getElementById('signupConfirmPassword').value;
-        const btnText = document.getElementById('signupBtnText');
-        const spinner = document.getElementById('signupSpinner');
-        
-        if (password !== confirmPassword) {
-            showError('Passwords do not match!');
-            return;
-        }
-        
-        // Show loading state
-        btnText.textContent = 'Creating Account...';
-        spinner.classList.remove('hidden');
-        
-        // Simulate API call
-        setTimeout(() => {
-            const userData = {
-                name: name,
-                email: email,
-                signupTime: new Date().toISOString()
-            };
-            
-            localStorage.setItem('odxio_user', JSON.stringify(userData));
-            sessionStorage.setItem('user', email);
-            
-            showSuccess('Account created successfully! Redirecting to dashboard...');
-            closeAuthModal();
-            
-            setTimeout(() => {
-                showTPPDashboard();
-            }, 1000);
-            
-            console.log('User signed up:', userData);
-        }, 1500);
-    }
-
-    // TPP Dashboard Functions
-    function showTPPDashboard() {
-        const dashboard = document.getElementById('tppDashboard');
-        const userEmail = document.getElementById('userEmail');
-        
-        // Hide main content
-        document.querySelector('main').style.display = 'none';
-        document.querySelector('footer').style.display = 'none';
-        
-        // Show dashboard
-        dashboard.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        
-        // Update user email
-        const email = sessionStorage.getItem('user') || 'demo@odxio.com';
-        userEmail.textContent = email;
-        
-        // Animate dashboard entrance
-        dashboard.style.opacity = '0';
-        setTimeout(() => {
-            dashboard.style.opacity = '1';
-        }, 100);
-    }
-
-    function logout() {
-        // Clear user data
-        localStorage.removeItem('odxio_user');
-        sessionStorage.removeItem('user');
-        
-        // Hide dashboard
-        const dashboard = document.getElementById('tppDashboard');
-        dashboard.style.opacity = '0';
-        
-        setTimeout(() => {
-            dashboard.classList.add('hidden');
-            
-            // Show main content
-            document.querySelector('main').style.display = 'block';
-            document.querySelector('footer').style.display = 'block';
-            document.body.style.overflow = 'auto';
-            
-            showSuccess('You have been logged out successfully.');
-        }, 300);
-    }
-
-    // TPP Action Functions
-    function registerBank() {
-        showSuccess('Bank registration feature coming soon!');
-        console.log('Register Bank clicked');
-    }
-
-    function viewSandboxData() {
-        showSuccess('Sandbox data viewer coming soon!');
-        console.log('View Sandbox Data clicked');
-    }
-
-    function viewConsents() {
-        showSuccess('Consent management coming soon!');
-        console.log('View Consents clicked');
-    }
-
-    // Notification Functions
-    function showSuccess(message) {
-        const notification = document.createElement('div');
-        notification.className = 'fixed top-4 right-4 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-lg z-50 transform translate-x-full transition-transform duration-300';
-        notification.innerHTML = `
-            <div class="flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                ${message}
-            </div>
+      domains.forEach((d, i) => {
+        const card = document.createElement('div');
+        card.className = 'domain-card fade-up';
+        card.style.animationDelay = `${0.1 + i * 0.08}s`;
+        card.innerHTML = `
+          <div class="domain-icon">
+            <i data-lucide="${icons[d.key]}" style="width: 48px; height: 48px; color: var(--primary); stroke-width: 1.5;"></i>
+          </div>
+          <span class="mono text-xs font-bold" style="color: var(--primary); letter-spacing: 0.5px;">${d.key.toUpperCase()}</span>
+          <h3 class="text-xl font-bold mt-3 mb-2">${d.label}</h3>
+          <p class="text-sm" style="color: var(--text-light);">${d.desc}</p>
         `;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.classList.remove('translate-x-full');
-        }, 100);
-        
-        setTimeout(() => {
-            notification.classList.add('translate-x-full');
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
-        }, 3000);
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
     }
 
-    function showError(message) {
-        const notification = document.createElement('div');
-        notification.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 transform translate-x-full transition-transform duration-300';
-        notification.innerHTML = `
-            <div class="flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-                ${message}
-            </div>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.classList.remove('translate-x-full');
-        }, 100);
-        
-        setTimeout(() => {
-            notification.classList.add('translate-x-full');
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
-        }, 3000);
+    const defaultConfig = {
+      background_color: '#ffffff',
+      surface_color: '#f5f7fb',
+      text_color: '#0f172a',
+      text_light_color: '#475569',
+      primary_color: '#2563eb',
+      primary_dark_color: '#1e40af',
+      accent_color: '#7c3aed',
+      font_family: 'Poppins',
+      font_size: 16,
+      hero_headline: 'Connecting open\necosystems.',
+      hero_subtext: 'Building bridges between industries through open standards, interoperable platforms, and transparent data exchange.',
+      cta_text: 'Explore Our Vision'
+    };
+
+    async function onConfigChange(config) {
+      const bg = config.background_color || defaultConfig.background_color;
+      const surface = config.surface_color || defaultConfig.surface_color;
+      const text = config.text_color || defaultConfig.text_color;
+      const textLight = config.text_light_color || defaultConfig.text_light_color;
+      const primary = config.primary_color || defaultConfig.primary_color;
+      const accent = config.accent_color || defaultConfig.accent_color;
+      const font = config.font_family || defaultConfig.font_family;
+      const size = config.font_size || defaultConfig.font_size;
+
+      document.documentElement.style.setProperty('--bg', bg);
+      document.documentElement.style.setProperty('--surface', surface);
+      document.documentElement.style.setProperty('--text', text);
+      document.documentElement.style.setProperty('--text-light', textLight);
+      document.documentElement.style.setProperty('--primary', primary);
+      document.documentElement.style.setProperty('--accent', accent);
+
+      document.body.style.fontFamily = `'${font}', sans-serif`;
+
+      const h1 = document.getElementById('hero-headline');
+      const sub = document.getElementById('hero-subtext');
+      const cta = document.getElementById('cta-btn');
+
+      if (h1) {
+        const raw = config.hero_headline || defaultConfig.hero_headline;
+        h1.innerHTML = raw.replace(/\n/g, '<br />') + `<span style="color:${primary};">.</span>`;
+        h1.style.fontSize = `${size * 3.5}px`;
+      }
+      if (sub) {
+        sub.textContent = config.hero_subtext || defaultConfig.hero_subtext;
+        sub.style.fontSize = `${size * 1.1}px`;
+      }
+      if (cta) {
+        cta.textContent = config.cta_text || defaultConfig.cta_text;
+      }
     }
 
-    // Close modals when clicking outside
-    document.addEventListener('click', function(event) {
-        const authModal = document.getElementById('authModal');
-        if (event.target === authModal) {
-            closeAuthModal();
+    function mapToCapabilities(config) {
+      function makeColor(key) {
+        return {
+          get: () => config[key] || defaultConfig[key],
+          set: (v) => { config[key] = v; window.elementSdk.setConfig({ [key]: v }); }
+        };
+      }
+      return {
+        recolorables: [
+          makeColor('background_color'),
+          makeColor('surface_color'),
+          makeColor('text_color'),
+          makeColor('primary_color'),
+          makeColor('accent_color')
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
         }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['hero_headline', config.hero_headline || defaultConfig.hero_headline],
+        ['hero_subtext', config.hero_subtext || defaultConfig.hero_subtext],
+        ['cta_text', config.cta_text || defaultConfig.cta_text]
+      ]);
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('contact-success').style.display = 'block';
+    }
+
+    function closeContactSuccess() {
+      document.getElementById('contact-overlay').classList.remove('open');
+      document.getElementById('contact-form').style.display = '';
+      document.getElementById('contact-form').reset();
+      document.getElementById('contact-success').style.display = 'none';
+    }
+
+    renderDomains();
+    lucide.createIcons();
+
+    document.querySelectorAll('.fade-up').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.animationPlayState = 'running';
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      obs.observe(el);
     });
 
-    // Check if user is already logged in on page load
-    window.addEventListener('load', function() {
-        const userEmail = sessionStorage.getItem('user');
-        if (userEmail) {
-            showTPPDashboard();
-        }
+    document.querySelectorAll('nav .fade-up, .hero-section .fade-up').forEach(el => {
+      el.style.animationPlayState = 'running';
     });
 
-    // Add smooth transitions to forms
-    document.addEventListener('DOMContentLoaded', function() {
-        const loginForm = document.getElementById('loginForm');
-        const signupForm = document.getElementById('signupForm');
-        
-        if (loginForm) loginForm.style.transition = 'opacity 0.3s ease';
-        if (signupForm) signupForm.style.transition = 'opacity 0.3s ease';
-    });
-</script>
-
-</body>
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e960e23c226c359',t:'MTc3NTcwMTQ2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
